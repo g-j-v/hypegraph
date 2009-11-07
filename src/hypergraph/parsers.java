@@ -21,15 +21,15 @@ public class parsers {
 		List<Node> ret = new ArrayList<Node>();
 
 		try {
-		
+
 			String line = stream.readLine();
 			String[] tokens = line.split(" ");
 
-			while(tokens[0].startsWith("#") || tokens[0]==""){
+			while (tokens[0].startsWith("#") || tokens[0] == "") {
 				line = stream.readLine();
 				tokens = line.split(" ");
 			}
-			
+
 			if (tokens.length > 1 && !tokens[1].startsWith("#")) {
 				System.out.println("Formato de archivo inválido.8");
 				return null;
@@ -40,11 +40,11 @@ public class parsers {
 			line = stream.readLine();
 			tokens = line.split(" ");
 
-			while(tokens[0].startsWith("#") || tokens[0]==""){
+			while (tokens[0].startsWith("#") || tokens[0] == "") {
 				line = stream.readLine();
 				tokens = line.split(" ");
 			}
-			
+
 			if (tokens.length > 1 && !tokens[1].startsWith("#")) {
 				System.out.println("Formato de archivo inválido.8");
 				return null;
@@ -62,15 +62,15 @@ public class parsers {
 	public static boolean readHyperArcs(Hypergraph graph) {
 
 		String name, line;
-		String [] tokens;
+		String[] tokens;
 		int weight, cycles, i;
 
 		try {
 			line = stream.readLine();
 			while (line != null) {
 				tokens = line.split(" ");
-				
-				while(tokens[0].startsWith("#") || tokens[0]=="\n"){
+
+				while (tokens[0].startsWith("#") || tokens[0] == "\n") {
 					line = stream.readLine();
 					tokens = line.split(" ");
 				}
@@ -87,25 +87,25 @@ public class parsers {
 				cycles = Integer.valueOf(tokens[2]);
 				System.out.println("cycles = " + cycles);
 
-				if(cycles+5 > tokens.length){
+				if (cycles + 5 > tokens.length) {
 					System.out.println("Formato de archivo inválido.");
 					return false;
 				}
-				
-				for (i = 3; i < 3+cycles; i++) {
-					if(tokens[i].contains("#")){
+
+				for (i = 3; i < 3 + cycles; i++) {
+					if (tokens[i].contains("#")) {
 						System.out.println("Formato de archivo inválido.");
 						return false;
 					}
 					graph.addHead(new Node(tokens[i]), aux);
 				}
 
-				int marker = cycles+3;
+				int marker = cycles + 3;
 				cycles = Integer.valueOf(tokens[marker]);
 				System.out.println("cycles = " + cycles);
 
-				for (i = marker+1; i < marker+1+cycles; i++) {
-					if(tokens[i].contains("#")){
+				for (i = marker + 1; i < marker + 1 + cycles; i++) {
+					if (tokens[i].contains("#")) {
 						System.out.println("Formato de archivo inválido.");
 						return false;
 					}
@@ -153,11 +153,17 @@ public class parsers {
 	public static void main(String[] args) {
 		Hypergraph hg;
 		Hypergraph minHg;
-		hg = read("hola");
+		hg = read("B.hg");
 		System.out.println("aefsgd!");
 		minHg = hg.minPath();
 		try {
 			dotConverter.toDot(hg, "asd");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dotConverter.toDot(minHg, "mini.dot");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,0 +1,319 @@
+digraph { 
+//// Nodos
+Node8c_0 [label="8c_0"];
+Node9c_3 [label="9c_3"];
+Node9c_4 [label="9c_4"];
+NodeINIC [label="INIC"];
+Node2c_2 [label="2c_2"];
+Node2c_3 [label="2c_3"];
+Node2c_5 [label="2c_5"];
+Node9c_11 [label="9c_11"];
+Node2c_9 [label="2c_9"];
+Node1c_8 [label="1c_8"];
+Node1c_5 [label="1c_5"];
+Node1c_9 [label="1c_9"];
+Node8c_9 [label="8c_9"];
+Node0c_11 [label="0c_11"];
+Node8c_5 [label="8c_5"];
+Node0c_10 [label="0c_10"];
+Node4c_10 [label="4c_10"];
+Node8c_4 [label="8c_4"];
+Node5c_0 [label="5c_0"];
+Node1c_1 [label="1c_1"];
+Node4c_6 [label="4c_6"];
+Node4c_7 [label="4c_7"];
+Node4c_4 [label="4c_4"];
+Node4c_5 [label="4c_5"];
+Node4c_2 [label="4c_2"];
+Node6c_1 [label="6c_1"];
+Node4c_3 [label="4c_3"];
+Node6c_0 [label="6c_0"];
+Node4c_8 [label="4c_8"];
+Node4c_9 [label="4c_9"];
+Node10c_6 [label="10c_6"];
+Node5c_9 [label="5c_9"];
+Node10c_4 [label="10c_4"];
+Node1c_10 [label="1c_10"];
+Node1c_11 [label="1c_11"];
+Node5c_5 [label="5c_5"];
+Node5c_6 [label="5c_6"];
+Node5c_8 [label="5c_8"];
+Node5c_3 [label="5c_3"];
+Node3c_7 [label="3c_7"];
+Node12c_9 [label="12c_9"];
+Node3c_10 [label="3c_10"];
+Node3c_1 [label="3c_1"];
+Node3c_2 [label="3c_2"];
+Node5c_11 [label="5c_11"];
+Node5c_10 [label="5c_10"];
+Node3c_5 [label="3c_5"];
+Node3c_6 [label="3c_6"];
+Node2c_11 [label="2c_11"];
+Node7c_11 [label="7c_11"];
+Node8c_11 [label="8c_11"];
+Node0c_1 [label="0c_1"];
+Node7c_10 [label="7c_10"];
+Node0c_0 [label="0c_0"];
+Node9c_8 [label="9c_8"];
+Node0c_3 [label="0c_3"];
+Node0c_2 [label="0c_2"];
+Node6c_2 [label="6c_2"];
+Node0c_5 [label="0c_5"];
+Node0c_4 [label="0c_4"];
+Node11c_5 [label="11c_5"];
+Node6c_4 [label="6c_4"];
+Node7c_9 [label="7c_9"];
+Node0c_7 [label="0c_7"];
+Node0c_6 [label="0c_6"];
+Node6c_11 [label="6c_11"];
+Node0c_9 [label="0c_9"];
+Node6c_6 [label="6c_6"];
+Node7c_4 [label="7c_4"];
+NodeENDC [label="ENDC"];
+Node0c_8 [label="0c_8"];
+Node6c_8 [label="6c_8"];
+Node7c_5 [label="7c_5"];
+Node6c_10 [label="6c_10"];
+Node7c_6 [label="7c_6"];
+//// ejes
+C179 [shape=box, height00.18, fontsize=12,label="C179 (11) "];
+C138 [shape=box, height00.18, fontsize=12,label="C138 (19) "];
+C60 [shape=box, height00.18, fontsize=12,label="C60 (1) "];
+C135 [shape=box, height00.18, fontsize=12,label="C135 (11) "];
+C139 [shape=box, height00.18, fontsize=12,label="C139 (20) "];
+C57 [shape=box, height00.18, fontsize=12,label="C57 (13) "];
+C54 [shape=box, height00.18, fontsize=12,label="C54 (8) "];
+C52 [shape=box, height00.18, fontsize=12,label="C52 (13) "];
+C98 [shape=box, height00.18, fontsize=12,label="C98 (7) "];
+C93 [shape=box, height00.18, fontsize=12,label="C93 (15) "];
+C95 [shape=box, height00.18, fontsize=12,label="C95 (16) "];
+C124 [shape=box, height00.18, fontsize=12,label="C124 (9) "];
+C51 [shape=box, height00.18, fontsize=12,label="C51 (3) "];
+C128 [shape=box, height00.18, fontsize=12,label="C128 (10) "];
+C15 [shape=box, height00.18, fontsize=12,label="C15 (7) "];
+C47 [shape=box, height00.18, fontsize=12,label="C47 (5) "];
+C42 [shape=box, height00.18, fontsize=12,label="C42 (8) "];
+C121 [shape=box, height00.18, fontsize=12,label="C121 (20) "];
+C44 [shape=box, height00.18, fontsize=12,label="C44 (1) "];
+C85 [shape=box, height00.18, fontsize=12,label="C85 (10) "];
+C86 [shape=box, height00.18, fontsize=12,label="C86 (19) "];
+C224 [shape=box, height00.18, fontsize=12,label="C224 (11) "];
+C166 [shape=box, height00.18, fontsize=12,label="C166 (1) "];
+C88 [shape=box, height00.18, fontsize=12,label="C88 (12) "];
+C4 [shape=box, height00.18, fontsize=12,label="C4 (5) "];
+C3 [shape=box, height00.18, fontsize=12,label="C3 (13) "];
+C27 [shape=box, height00.18, fontsize=12,label="C27 (6) "];
+C211 [shape=box, height00.18, fontsize=12,label="C211 (3) "];
+C6 [shape=box, height00.18, fontsize=12,label="C6 (7) "];
+C5 [shape=box, height00.18, fontsize=12,label="C5 (13) "];
+C28 [shape=box, height00.18, fontsize=12,label="C28 (14) "];
+C25 [shape=box, height00.18, fontsize=12,label="C25 (5) "];
+C110 [shape=box, height00.18, fontsize=12,label="C110 (8) "];
+C80 [shape=box, height00.18, fontsize=12,label="C80 (18) "];
+C22 [shape=box, height00.18, fontsize=12,label="C22 (2) "];
+C84 [shape=box, height00.18, fontsize=12,label="C84 (5) "];
+C81 [shape=box, height00.18, fontsize=12,label="C81 (12) "];
+C158 [shape=box, height00.18, fontsize=12,label="C158 (15) "];
+C77 [shape=box, height00.18, fontsize=12,label="C77 (9) "];
+C76 [shape=box, height00.18, fontsize=12,label="C76 (1) "];
+C118 [shape=box, height00.18, fontsize=12,label="C118 (10) "];
+C151 [shape=box, height00.18, fontsize=12,label="C151 (14) "];
+C114 [shape=box, height00.18, fontsize=12,label="C114 (2) "];
+C152 [shape=box, height00.18, fontsize=12,label="C152 (12) "];
+C0 [shape=box, height00.18, fontsize=12,label="C0 (1) "];
+C1 [shape=box, height00.18, fontsize=12,label="C1 (12) "];
+C39 [shape=box, height00.18, fontsize=12,label="C39 (2) "];
+C101 [shape=box, height00.18, fontsize=12,label="C101 (18) "];
+C147 [shape=box, height00.18, fontsize=12,label="C147 (14) "];
+C70 [shape=box, height00.18, fontsize=12,label="C70 (19) "];
+C32 [shape=box, height00.18, fontsize=12,label="C32 (9) "];
+C64 [shape=box, height00.18, fontsize=12,label="C64 (17) "];
+C143 [shape=box, height00.18, fontsize=12,label="C143 (5) "];
+C63 [shape=box, height00.18, fontsize=12,label="C63 (13) "];
+C109 [shape=box, height00.18, fontsize=12,label="C109 (4) "];
+C66 [shape=box, height00.18, fontsize=12,label="C66 (17) "];
+C107 [shape=box, height00.18, fontsize=12,label="C107 (8) "];
+C68 [shape=box, height00.18, fontsize=12,label="C68 (11) "];
+C105 [shape=box, height00.18, fontsize=12,label="C105 (3) "];
+C67 [shape=box, height00.18, fontsize=12,label="C67 (18) "];
+C102 [shape=box, height00.18, fontsize=12,label="C102 (2) "];
+C69 [shape=box, height00.18, fontsize=12,label="C69 (9) "];
+C103 [shape=box, height00.18, fontsize=12,label="C103 (17) "];
+//// Arcos
+Node10c_6->C179 [style=bold, color=black]
+Node10c_4->C179 [style=bold, color=black]
+C179->Node11c_5[style=bold, color=black]
+Node7c_5->C138 [style=bold, color=black]
+C138->Node8c_9[style=bold, color=black]
+Node3c_2->C60 [style=bold, color=black]
+Node3c_6->C60 [style=bold, color=black]
+C60->Node4c_8[style=bold, color=black]
+Node7c_4->C135 [style=bold, color=black]
+C135->Node8c_5[style=bold, color=black]
+Node7c_11->C139 [style=bold, color=black]
+C139->Node8c_11[style=bold, color=black]
+Node3c_1->C57 [style=bold, color=black]
+Node3c_5->C57 [style=bold, color=black]
+C57->Node4c_4[style=bold, color=black]
+Node3c_10->C54 [style=bold, color=black]
+Node3c_5->C54 [style=bold, color=black]
+C54->Node4c_6[style=bold, color=black]
+Node2c_2->C52 [style=bold, color=black]
+C52->Node3c_10[style=bold, color=black]
+Node5c_10->C98 [style=bold, color=black]
+Node5c_3->C98 [style=bold, color=black]
+C98->Node6c_11[style=bold, color=black]
+Node5c_9->C93 [style=bold, color=black]
+Node5c_5->C93 [style=bold, color=black]
+C93->Node6c_6[style=bold, color=black]
+Node5c_5->C95 [style=bold, color=black]
+Node5c_0->C95 [style=bold, color=black]
+C95->Node6c_10[style=bold, color=black]
+Node7c_10->C124 [style=bold, color=black]
+Node7c_6->C124 [style=bold, color=black]
+C124->Node8c_4[style=bold, color=black]
+Node2c_3->C51 [style=bold, color=black]
+C51->Node3c_7[style=bold, color=black]
+Node7c_9->C128 [style=bold, color=black]
+Node7c_5->C128 [style=bold, color=black]
+C128->Node8c_0[style=bold, color=black]
+Node0c_7->C15 [style=bold, color=black]
+C15->Node1c_1[style=bold, color=black]
+Node2c_5->C47 [style=bold, color=black]
+C47->Node3c_1[style=bold, color=black]
+Node2c_2->C42 [style=bold, color=black]
+Node2c_3->C42 [style=bold, color=black]
+C42->Node3c_6[style=bold, color=black]
+Node6c_10->C121 [style=bold, color=black]
+C121->Node7c_6[style=bold, color=black]
+Node2c_2->C44 [style=bold, color=black]
+Node2c_9->C44 [style=bold, color=black]
+C44->Node3c_5[style=bold, color=black]
+Node4c_10->C85 [style=bold, color=black]
+C85->Node5c_8[style=bold, color=black]
+Node4c_6->C86 [style=bold, color=black]
+C86->Node5c_9[style=bold, color=black]
+Node12c_9->C224 [style=bold, color=black]
+C224->NodeENDC[style=bold, color=black]
+Node9c_8->C166 [style=bold, color=black]
+Node9c_11->C166 [style=bold, color=black]
+C166->Node10c_6[style=bold, color=black]
+Node5c_9->C88 [style=bold, color=black]
+Node5c_5->C88 [style=bold, color=black]
+C88->Node6c_4[style=bold, color=black]
+Node0c_1->C4 [style=bold, color=black]
+Node0c_10->C4 [style=bold, color=black]
+C4->Node1c_8[style=bold, color=black]
+Node0c_7->C3 [style=bold, color=black]
+Node0c_8->C3 [style=bold, color=black]
+C3->Node1c_5[style=bold, color=black]
+Node1c_10->C27 [style=bold, color=black]
+Node1c_1->C27 [style=bold, color=black]
+C27->Node2c_11[style=bold, color=black]
+Node11c_5->C211 [style=bold, color=black]
+C211->Node12c_9[style=bold, color=black]
+Node0c_5->C6 [style=bold, color=black]
+Node0c_4->C6 [style=bold, color=black]
+C6->Node1c_9[style=bold, color=black]
+Node0c_5->C5 [style=bold, color=black]
+Node0c_4->C5 [style=bold, color=black]
+C5->Node1c_10[style=bold, color=black]
+Node1c_11->C28 [style=bold, color=black]
+Node1c_1->C28 [style=bold, color=black]
+C28->Node2c_3[style=bold, color=black]
+Node1c_5->C25 [style=bold, color=black]
+Node1c_11->C25 [style=bold, color=black]
+C25->Node2c_5[style=bold, color=black]
+Node6c_0->C110 [style=bold, color=black]
+Node6c_8->C110 [style=bold, color=black]
+C110->Node7c_9[style=bold, color=black]
+Node4c_10->C80 [style=bold, color=black]
+Node4c_8->C80 [style=bold, color=black]
+C80->Node5c_10[style=bold, color=black]
+Node1c_11->C22 [style=bold, color=black]
+Node1c_9->C22 [style=bold, color=black]
+C22->Node2c_9[style=bold, color=black]
+Node4c_7->C84 [style=bold, color=black]
+C84->Node5c_6[style=bold, color=black]
+Node4c_3->C81 [style=bold, color=black]
+Node4c_9->C81 [style=bold, color=black]
+C81->Node5c_0[style=bold, color=black]
+Node9c_3->C158 [style=bold, color=black]
+Node9c_4->C158 [style=bold, color=black]
+C158->Node10c_4[style=bold, color=black]
+Node4c_7->C77 [style=bold, color=black]
+Node4c_4->C77 [style=bold, color=black]
+C77->Node5c_3[style=bold, color=black]
+Node4c_7->C76 [style=bold, color=black]
+Node4c_2->C76 [style=bold, color=black]
+C76->Node5c_11[style=bold, color=black]
+Node6c_1->C118 [style=bold, color=black]
+Node6c_6->C118 [style=bold, color=black]
+C118->Node7c_5[style=bold, color=black]
+Node8c_9->C151 [style=bold, color=black]
+Node8c_4->C151 [style=bold, color=black]
+C151->Node9c_3[style=bold, color=black]
+Node6c_4->C114 [style=bold, color=black]
+Node6c_11->C114 [style=bold, color=black]
+C114->Node7c_11[style=bold, color=black]
+Node8c_5->C152 [style=bold, color=black]
+C152->Node9c_11[style=bold, color=black]
+NodeINIC->C0 [style=bold, color=black]
+C0->Node0c_1[style=bold, color=black]
+C0->Node0c_0[style=bold, color=black]
+C0->Node0c_3[style=bold, color=black]
+C0->Node0c_2[style=bold, color=black]
+C0->Node0c_5[style=bold, color=black]
+C0->Node0c_4[style=bold, color=black]
+C0->Node0c_7[style=bold, color=black]
+C0->Node0c_11[style=bold, color=black]
+C0->Node0c_6[style=bold, color=black]
+C0->Node0c_10[style=bold, color=black]
+C0->Node0c_9[style=bold, color=black]
+C0->Node0c_8[style=bold, color=black]
+Node0c_0->C1 [style=bold, color=black]
+Node0c_4->C1 [style=bold, color=black]
+C1->Node1c_11[style=bold, color=black]
+Node2c_11->C39 [style=bold, color=black]
+Node2c_9->C39 [style=bold, color=black]
+C39->Node3c_2[style=bold, color=black]
+Node5c_8->C101 [style=bold, color=black]
+C101->Node6c_2[style=bold, color=black]
+Node8c_0->C147 [style=bold, color=black]
+Node8c_9->C147 [style=bold, color=black]
+C147->Node9c_8[style=bold, color=black]
+Node4c_5->C70 [style=bold, color=black]
+Node4c_9->C70 [style=bold, color=black]
+C70->Node5c_5[style=bold, color=black]
+Node1c_8->C32 [style=bold, color=black]
+C32->Node2c_2[style=bold, color=black]
+Node3c_7->C64 [style=bold, color=black]
+Node3c_2->C64 [style=bold, color=black]
+C64->Node4c_9[style=bold, color=black]
+Node8c_11->C143 [style=bold, color=black]
+Node8c_4->C143 [style=bold, color=black]
+C143->Node9c_4[style=bold, color=black]
+Node3c_1->C63 [style=bold, color=black]
+Node3c_2->C63 [style=bold, color=black]
+C63->Node4c_3[style=bold, color=black]
+Node6c_2->C109 [style=bold, color=black]
+Node6c_4->C109 [style=bold, color=black]
+C109->Node7c_10[style=bold, color=black]
+Node3c_6->C66 [style=bold, color=black]
+C66->Node4c_2[style=bold, color=black]
+Node6c_0->C107 [style=bold, color=black]
+Node6c_4->C107 [style=bold, color=black]
+C107->Node7c_4[style=bold, color=black]
+Node3c_7->C68 [style=bold, color=black]
+C68->Node4c_7[style=bold, color=black]
+Node5c_8->C105 [style=bold, color=black]
+C105->Node6c_8[style=bold, color=black]
+Node3c_5->C67 [style=bold, color=black]
+C67->Node4c_5[style=bold, color=black]
+Node5c_11->C102 [style=bold, color=black]
+C102->Node6c_0[style=bold, color=black]
+Node3c_2->C69 [style=bold, color=black]
+C69->Node4c_10[style=bold, color=black]
+Node5c_6->C103 [style=bold, color=black]
+C103->Node6c_1[style=bold, color=black]
+}
