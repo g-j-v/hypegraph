@@ -1,3 +1,5 @@
+INIC
+ENDC
 # Especificacion hipergrafo
 C0 1 12 0c_0 0c_1 0c_2 0c_3 0c_4 0c_5 0c_6 0c_7 0c_8 0c_9 0c_10 0c_11 1 INIC
 C1 12 1 1c_11 2 0c_4 0c_0

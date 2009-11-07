@@ -24,6 +24,9 @@ public class Node {
 	}
 	
 	public boolean equals(Object o) {
+		if(o == null){
+			return false;
+		}
 		if (o.getClass() != this.getClass()) {
 			return false;
 		}
@@ -69,13 +72,13 @@ public class Node {
 	}
 	
 	public int getMin(){
-		int i=500;
+		Integer i=null;
 		for(Hmark m : mark){
-			if(m.cost < i){
+			if(i == null || m.cost < i){
 				i=m.cost;
 			}
 		}
-		
+		System.out.println("Peso mínimo para " + this + "=" + i);
 		return i;
 	}
 	

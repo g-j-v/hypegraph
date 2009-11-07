@@ -1,0 +1,15 @@
+START
+END
+# Especificacion hipergrafo
+A1 5 1 a2 1 START
+A2 7 5 a7 a10 a11 a3 a6 1 START
+A3 6 3 a9 a4 a5 1 START
+A4 8 3 a8 a12 a13 1 a3
+A5 4 2 a8 a13 1 a4
+A6 5 1 a1 4 a2 a7 a8 a9
+A7 10 1 END 3 a7 a8 a9
+A8 11 1 a1 4 a7 a8 a9 a10
+A9 5 1 a1 4 a9 a10 a11 a12
+A10 4 1 END 3 a9 a11 a12
+A11 7 1 END 3 a13 a6 a5
+A12 6 1 END 1 a1
