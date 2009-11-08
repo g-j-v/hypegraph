@@ -3,12 +3,14 @@ package hypergraph;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream.GetField;
-import java.util.SortedSet;
+import java.util.Set;
+/*import java.io.ObjectInputStream.GetField;
+import java.util.SortedSet;*/
 
 public class dotConverter {
+	static Integer suma = 0;
 	
-	public static void toDot(Hypergraph hypergrafo,String arch) throws IOException{
+	public static void toDot(Hypergraph hypergrafo,String arch,Hypergraph min) throws IOException{
 		
 		BufferedWriter output;
 		try {
@@ -32,37 +34,45 @@ public class dotConverter {
 		output.write("//// ejes");
 		output.newLine();
 	//// Ejes
+		
 		for(Hyperarc arc: hypergrafo.getHyperArcs()){
 			output.write(arc.getName() + ' ' );
-			output.write("[" +
-					"shape=box, height00.18, fontsize=12,"+
-					//+ isintheminpath()?"color=grey":""+
-					"label="+ '\"' + arc.getName()+ " (" + arc.getValue() + ") "+ "\"" +
-							"];");
+			//String gris = "color=grey";
+		
+			output.write("[" +"shape=box, height00.18, fontsize=12,");
+			if(isInMinPath(arc,min)){
+				output.write("color=grey, style=filled, fillcolor=red ");
+			}
+			output.write("label="+ '\"' + arc.getName()+ " (" + arc.getValue() + ") "+ "\"" +"];");
+			suma+=arc.getValue();
 			output.newLine();
 		}
 		output.write("//// Arcos");
 		output.newLine();
 	////Arquetes
+		
 		String flechitacomun = "[style=bold, color=black]";
-		String flechitagris = "[color=\"#000000\", style=dotted, arrowhead=vee]";
+		String flechitagris = "[color=\"#000000\", color=grey, arrowhead=vee]";
+		
+	//	Set<Hyperarc> hypArcNoinic = hypergrafo.getHyperArcs();
+		//hypArcNoinic.remove(hypergrafo.getStart().adj);
+		
 		for(Hyperarc arc: hypergrafo.getHyperArcs()){
 			for(Node n: arc.getTail()){
 				output.write("Node"+n.getName() + "->" + arc.getName() + " ");
-				System.out.println(n);
-				if (isInMinPath(n)){
-					output.write(flechitacomun);
-				}else{
+				if (!isInMinPath(n,min) || !isInMinPath3(n,min) ){
 					output.write(flechitagris);
+				}else{
+					output.write(flechitacomun);
 				}
 				output.newLine();
 			}
 			for(Node n: arc.getHead()){
 				output.write( arc.getName() + "->"  + "Node"+n.getName() );
-				if (isInMinPath(n)){
-					output.write(flechitacomun);
-				}else{
+				if (!isInMinPath(n,min) || !isInMinPath3(n,min)){
 					output.write(flechitagris);
+				}else{
+					output.write(flechitacomun);
 				}
 				output.newLine();
 			}
@@ -72,8 +82,26 @@ public class dotConverter {
 		output.flush();
 	}
 
-	private static boolean isInMinPath(Node n) {
-		return true;
+	private static boolean isInMinPath(Hyperarc ha, Hypergraph min) {
+		return min.getHyperArcs().contains(ha);
 	}
-
+	private static boolean isInMinPath(Node node, Hypergraph min) {
+		return min.getNodes().contains(node);
+	}
+	private static boolean isInMinPath2(Node node, Hypergraph min) {
+		for(Hyperarc arc: min.getHyperArcs()){
+			if(node.adj.contains(arc)){
+				return true;
+			}
+		}
+		return false;
+	}
+	private static boolean isInMinPath3(Node node, Hypergraph min) {
+		for(Hyperarc arc: node.adj){
+			if(min.getHyperArcs().contains(arc)){
+				return true;
+			}
+		}
+		return false;
+	}
 }
