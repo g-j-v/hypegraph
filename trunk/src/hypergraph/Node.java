@@ -1,8 +1,10 @@
 package hypergraph;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
-public class Node {
+public class Node implements Cloneable {
 	String name;
 	Integer tag;
 	List<Hyperarc> adj;
@@ -17,8 +19,15 @@ public class Node {
 		this.prevHyps = 0;
 	}
 	
+	public Node clone(){
+		Node ret = new Node(this.name);
+		ret.adj=this.adj;
+		ret.mark=this.mark;
+		ret.prevHyps=this.prevHyps;
+		ret.tag= this.tag;
+		return ret;
+	}
 	
-
 	public String toString(){
 		return name;
 	}
@@ -44,7 +53,7 @@ public class Node {
 	}
 	
 	public int hashCode(){
-		return name.hashCode();
+		return this.name.hashCode();
 	}
 
 	public String getName() {
@@ -60,21 +69,19 @@ public class Node {
 	}
 	
 	public void addMark(Hyperarc arc){
-		int aux = arc.getValue() + arc.calculateCost();
-		mark.add(new Hmark(arc, aux));
-	}
-	
-	
-	
-	public void mark(Hyperarc arc){
-		Hmark tmp = new Hmark(arc, arc.Cost());
+		Set<Hyperarc> aux;
+		aux = arc.getCost();
+		Hmark tmp = new Hmark(aux, arc);
+		System.out.println("marqué "+ this + " con " + arc + " con " + tmp.getCost());
 		mark.add(tmp);
 	}
 	
 	public int getMin(){
 		Integer i=null;
 		for(Hmark m : mark){
+			System.out.println(m.cost);
 			if(i == null || m.cost < i){
+				System.out.println(m.cost);
 				i=m.cost;
 			}
 		}
@@ -82,11 +89,11 @@ public class Node {
 		return i;
 	}
 	
-	public Hyperarc getMinArc(){
+	public Hmark getMinArc(){
 		int mini=getMin();
 		for(Hmark m : mark){
 			if(m.cost == mini){
-				return m.arc;
+				return m;
 			}
 		}
 		return null;
@@ -109,29 +116,46 @@ public class Node {
 		prevHyps++;
 	}
 	
-	public class Hmark {
-		Hyperarc arc;
+	public class Hmark implements Cloneable{
+		Set<Hyperarc> arcs = new HashSet<Hyperarc>();
+		Hyperarc last;
 		int cost;
 		
-		Hmark(Hyperarc arc, int cost){
-			this.arc=arc;
-			this.cost=cost;
+		Hmark(Set<Hyperarc> arcs, Hyperarc arc){
+			this.arcs = arcs;
+			this.arcs.add(arc);
+			for(Hyperarc a:arcs){
+				cost+=a.getValue();
+			}
+			this.last=arc;		
 		}
 		
 		public int getCost(){
-			return cost;
+				return cost;
 		}
 		
 		public Hyperarc getOrigin(){
-			return arc;
+			return last;
+		}
+		
+		public Set<Hyperarc> getAncestors(){
+			return arcs;
 		}
 
 		public boolean equals(Hmark mark){
-			return arc.equals(mark.arc);
+			return arcs.equals(mark.arcs);
 		}
 		
 		public int hashCode(){
-			return arc.hashCode();
+			return arcs.hashCode();
+		}
+		
+		public Hmark clone(){
+			return new Hmark(this.arcs, this.last);
+		}
+		
+		public String toString(){
+			return this.last.toString();
 		}
 	}
 	

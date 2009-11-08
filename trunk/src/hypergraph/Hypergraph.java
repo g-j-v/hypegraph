@@ -29,10 +29,10 @@ public class Hypergraph {
 			return false;
 		}
 		hyperArcs.add(arc);
-		for(Node node: arc.getHead()){
+		for (Node node : arc.getHead()) {
 			addHead(node, arc);
 		}
-		for(Node node: arc.getTail()){
+		for (Node node : arc.getTail()) {
 			addTail(node, arc);
 		}
 		return true;
@@ -47,10 +47,10 @@ public class Hypergraph {
 			if (!nodes.contains(node)) {
 				nodes.add(node);
 			}
-			
+
 			for (Node n : nodes) {
 				if (n.equals(node)) {
-					node=n;
+					node = n;
 					n.growHyp();
 				}
 			}
@@ -65,14 +65,14 @@ public class Hypergraph {
 			if (!nodes.contains(node)) {
 				nodes.add(node);
 			}
-			
+
 			for (Node n : nodes) {
 				if (n.equals(node)) {
 					node = n;
 					n.addArc(arc);
 				}
 			}
-			
+
 			arc.addTail(node);
 			return true;
 		}
@@ -95,30 +95,31 @@ public class Hypergraph {
 
 		clearMarks();
 
-		Iterator<Node> iter= nodes.iterator();
-//		System.out.println(nodes.size());
+		Iterator<Node> iter = nodes.iterator();
+		// System.out.println(nodes.size());
 		Node node = null;
-//		System.out.println(node);
-		
-		while(iter.hasNext() && !start.equals(node)){
-			node=iter.next();
-//			System.out.println("veo " + node);
-			if(node.equals(start)){
-//				System.out.println("inicia " + node);
-				node.init();
-			}
+		// System.out.println(node);
+
+		while (iter.hasNext() && !start.equals(node)) {
+			node = iter.next();
+			// System.out.println("veo " + node);
 		}
+		if (node.equals(start)) {
+			System.out.println("inicia " + node);
+			node.init();
+		}
+
 		minPath(start, end);
 		Hypergraph g = new Hypergraph();
 		g.setStart(this.start);
 		g.setEnd(this.end);
-		Hyperarc arc = end.getMinArc();
+		Hyperarc arc = end.getMinArc().last;
 		return tracePath(arc, g);
 	}
 
 	private Hypergraph tracePath(Hyperarc arc, Hypergraph graph) {
-		if(arc == null){
-//			System.out.println("volviendo!");
+		if (arc == null) {
+			// System.out.println("volviendo!");
 			return null;
 		}
 		graph.addHyperarc(arc);
@@ -128,8 +129,8 @@ public class Hypergraph {
 			}
 		}
 		for (Node n : arc.getTail()) {
-//			System.out.println("arco " + arc + " y nodo" + n);
-			tracePath(n.getMinArc(), graph);
+			// System.out.println("arco " + arc + " y nodo" + n);
+			tracePath(n.getMinArc().last, graph);
 		}
 
 		return graph;
@@ -137,18 +138,18 @@ public class Hypergraph {
 
 	private void minPath(Node ini, Node fin) {
 		if (ini.equals(fin)) {
-//			System.out.println("vuelvoo!");
+			// System.out.println("vuelvoo!");
 			return;
 		}
 		for (Hyperarc arc : ini.adj) {
-//			System.out.println("arco " + arc);
+			System.out.println("arco " + arc);
 			if (arc.isMarked()) {
-//				System.out.println(arc + " está marcada!");
+				System.out.println(arc + " está marcada!");
 				for (Node n : arc.getHead()) {
-//					System.out.println("nodo " + n + " para arco " + arc);
+					System.out.println("nodo " + n + " para arco " + arc);
 					n.addMark(arc);
 					if (n.isMarked()) {
-//						System.out.println(n + " está marcada!");
+						System.out.println(n + " está marcada!");
 						minPath(n, fin);
 					}
 				}
