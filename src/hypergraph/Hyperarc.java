@@ -12,8 +12,8 @@ public class Hyperarc {
 	private Set<Node> head;
 	private Integer value;
 	private boolean mark;
-	private int cost;
 	private Map<Node, Node.Hmark> origins;
+	Set<Hyperarc> cost;
 
 	public Hyperarc(String name, Integer value) {
 		this.tail = new HashSet<Node>();
@@ -22,6 +22,7 @@ public class Hyperarc {
 		this.name = name;
 		this.mark = false;
 		this.origins = new HashMap<Node, Node.Hmark>();
+		this.cost = new HashSet<Hyperarc>();
 	}
 
 	public Set<Node> getTail() {
@@ -32,8 +33,12 @@ public class Hyperarc {
 		return head;
 	}
 
+	public Map<Node, Node.Hmark> getMarks() {
+		return origins;
+	}
+
 	public boolean equals(Object o) {
-		if(o == null){
+		if (o == null) {
 			return false;
 		}
 		if (o.getClass() != this.getClass()) {
@@ -82,6 +87,8 @@ public class Hyperarc {
 
 	public void clearMark() {
 		mark = false;
+		cost.clear();
+		origins.clear();
 	}
 
 	public boolean isMarked() {
@@ -93,7 +100,7 @@ public class Hyperarc {
 
 		Iterator<Node> iter = this.tail.iterator();
 		Node node;
-		while(iter.hasNext()){
+		while (iter.hasNext()) {
 			node = iter.next();
 			if (flag == false) {
 				return false;
@@ -108,59 +115,117 @@ public class Hyperarc {
 		return flag;
 	}
 
-	public int calculateCost() {
-	
+	public Set<Hyperarc> getCost() {
+		if (cost.isEmpty()) {
+			cost = calculateCost();
+		}
+		return cost;
+	}
+
+	public Set<Hyperarc> calculateCost() {
+
+		Set<Hyperarc> ret = new HashSet<Hyperarc>();
 		Map<Node, Node.Hmark> mapa = new HashMap<Node, Node.Hmark>();
 
 		for (Node n : tail) {
 			mapa.put(n, n.mark.get(0));
 		}
 
-		origins = mapa;
+		for (Node n : mapa.keySet()) {
+			origins.put(n.clone(), mapa.get(n).clone());
+		}
+		// origins = (HashMap<Node, Node.Hmark>)((HashMap<Node,
+		// Node.Hmark>)mapa).clone();
 
 		Iterator<Node> iter = mapa.keySet().iterator();
 
 		if (iter.hasNext()) {
-			varyMark(mapa, iter);
+			Node first = iter.next();
+			varyMark(mapa, first, iter);
 		}
 
-		return sumMarks(mapa);
+		System.out.println("tamaño del mapa: " + mapa.keySet().size());
+		for (Node n : origins.keySet()) {
+			ret.addAll(origins.get(n).getAncestors());
+		}
+
+		// System.out.println("Ancestros de "+ this + ": " + ret.size());
+		String anc = "";
+		for (Hyperarc a : ret) {
+			anc += ", " + a;
+		}
+
+		System.out.println("Nosotros, " + anc + ", somos ancestros de " + this);
+
+		return ret;
 
 	}
 
-	public int Cost() {
-		return cost;
-	}
+	public void varyMark(Map<Node, Node.Hmark> map, Node current,
+			Iterator<Node> iter) {
 
-	public void varyMark(Map<Node, Node.Hmark> map, Iterator<Node> iter) {
 		int i;
-		Node node = iter.next();
+		Node next = null;
 
-		for (i = 0; i < node.mark.size(); i++) {
+		if (iter.hasNext()) {
+			next = iter.next();
+		}
 
-			map.put(node, node.mark.get(i));
+		System.out.println("curr " + current + "next " + next);
 
-			if (iter.hasNext()) {
-				varyMark(map, iter);
+		for (i = 0; i < current.mark.size(); i++) {
+
+			System.out.print("map: ");
+			for (Node n : map.keySet()) {
+				System.out.print(map.get(n) + ", ");
+			}
+			System.out.print("origins: ");
+			for (Node n : map.keySet()) {
+				System.out.print(origins.get(n) + ", ");
+			}
+			
+			map.put(current, current.mark.get(i));
+
+			if (next != null) {
+				varyMark(map, next, iter);
 			} else {
+				System.out.print("map: ");
+				for (Node n : map.keySet()) {
+					System.out.print(map.get(n) + ", ");
+				}
+				System.out.print("origins: ");
+				for (Node n : map.keySet()) {
+					System.out.print(origins.get(n) + ", ");
+				}
+				System.out.println("lalala " + current + "-" + sumMarks(map)
+						+ "-" + sumMarks(origins));
 				if (sumMarks(map) < sumMarks(origins)) {
-					origins = map;
+					System.out.println("Viejo: " + sumMarks(origins)
+							+ ", Nuevo : " + sumMarks(map));
+					origins.putAll(map);
+				}
+				System.out.print("map: ");
+				for (Node n : map.keySet()) {
+					System.out.print(map.get(n) + ", ");
+				}
+				System.out.print("origins: ");
+				for (Node n : map.keySet()) {
+					System.out.print(origins.get(n) + ", ");
 				}
 			}
 		}
 	}
 
-	private static int sumMarks(Map<Node, Node.Hmark> map) {
+	public static int sumMarks(Map<Node, Node.Hmark> map) {
 		int res = 0;
 		Set<Hyperarc> parents = new HashSet<Hyperarc>();
 		for (Node n : map.keySet()) {
-			if (!parents.contains(map.get(n).arc)) {
-				res += map.get(n).cost;
-			}
-			parents.add(map.get(n).arc);
+			parents.addAll(map.get(n).getAncestors());
 		}
-
+		for (Hyperarc a : parents) {
+			res += a.getValue();
+		}
 		return res;
 	}
-	
+
 }
