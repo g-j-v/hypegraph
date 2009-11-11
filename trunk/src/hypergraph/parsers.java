@@ -153,20 +153,20 @@ public class parsers {
 	public static void main(String[] args) {
 		Hypergraph hg;
 		Hypergraph minHg;
-		hg = read("A.hg");
+		hg = read("B.hg");
 		System.out.println("aefsgd!");
 		int i = 0;
 
 		minHg = hg.minPath();
 
 		try {
-			dotConverter.toDot(hg, "ads" + i, minHg);
+			dotConverter.toDot(hg, "B.dot" + i, minHg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(minHg);
-		System.out.println(hg.getLast().getMin());
+		//System.out.println(minHg);
+		//System.out.println(hg.getLast().getMin());
 		i++;
 	}
 

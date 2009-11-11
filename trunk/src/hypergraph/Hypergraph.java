@@ -128,9 +128,9 @@ public class Hypergraph {
 		clearMarks();
 
 	
-		//
-		// Set<Hyperarc> ret = new HashSet<Hyperarc>();
-		// ret = (HashSet<Hyperarc>)realMinPath(hg.start, hg.end, hg,
+		
+		 //Set<Hyperarc> ret = new HashSet<Hyperarc>();
+		//ret = (HashSet<Hyperarc>)realMinPath(hg.start, hg.end, hg,
 		// calculateWeight());
 		
 		realMinPathWrap(this.start, this.end);
@@ -208,6 +208,9 @@ public class Hypergraph {
 		int weight = calculateWeight(acum) + calculateWeight(last);
 
 		if (weight > Hypergraph.minWeight) {
+			System.out.println("no sigo porque");
+			System.out.println(acum.toString() + last.toString());
+			System.out.println("era largo");
 			return;
 		}
 
@@ -230,20 +233,27 @@ public class Hypergraph {
 		for (Hyperarc ha : last) {
 			nodes.addAll(ha.getTail());
 		}
-
+		System.out.println("nodos = " + nodes);
 		Deque<Set<Hyperarc>> queue = new LinkedList<Set<Hyperarc>>();
 		
 		Iterator<Node> iter = nodes.iterator();
 		if(iter.hasNext()){
-			arcPermut(iter.next(), iter, new ArrayList<Hyperarc>(), queue);
+			Node n = iter.next();
+			System.out.println("es el siguiente? = " + n);
+			System.out.println("cola a encolar = " + queue);
+			arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
+			System.out.println("cola a encolada = " + queue);
 		}
 		/*
 		 * Ahora copiar el código de Hyperarc.varyMark 
 		 * para hacer las combinatorias de aristas y agregarlas al deque de sets de aristas
 		 */
-		
+		System.out.println(queue);
 		while(!queue.isEmpty()){
-			realMinPath(start, nodes, newAcum, queue.poll());
+			Set<Hyperarc> haset = queue.poll();
+			//sSystem.out.println(queue);
+			//(System.out.println(haset);
+			realMinPath(start, nodes, newAcum, haset);
 		}
 		
 	}
@@ -252,6 +262,7 @@ public class Hypergraph {
 	
 		if(current == null){
 			queue.offer(new HashSet<Hyperarc>(arcs));
+			return;
 		}
 		
 		Node next = null;
@@ -259,8 +270,8 @@ public class Hypergraph {
 			next=iter.next();
 		}
 		
-		Node curr= iter.next();
-		for(Hyperarc arc:curr.next){
+		System.out.println(current);
+		for(Hyperarc arc:current.prev){
 			arcs.add(arcs.size(),arc);
 			arcPermut(next, iter, arcs, queue);
 			arcs.remove(arcs.size()-1);
