@@ -58,9 +58,10 @@ public class dotConverter {
 		//hypArcNoinic.remove(hypergrafo.getStart().adj);
 		
 		for(Hyperarc arc: hypergrafo.getHyperArcs()){
+			
 			for(Node n: arc.getTail()){
 				output.write("Node"+n.getName() + "->" + arc.getName() + " ");
-				if (!isInMinPath(n,min) || !isInMinPath3(n,min) ){
+				if(!isInMinPath(n,min) || !isInMinPath(arc, min)){
 					output.write(flechitagris);
 				}else{
 					output.write(flechitacomun);
@@ -69,7 +70,7 @@ public class dotConverter {
 			}
 			for(Node n: arc.getHead()){
 				output.write( arc.getName() + "->"  + "Node"+n.getName() );
-				if (!isInMinPath(n,min) || !isInMinPath3(n,min)){
+				if (!isInMinPath(n,min) || !isInMinPath(arc, min)){
 					output.write(flechitagris);
 				}else{
 					output.write(flechitacomun);
@@ -85,19 +86,22 @@ public class dotConverter {
 	private static boolean isInMinPath(Hyperarc ha, Hypergraph min) {
 		return min.getHyperArcs().contains(ha);
 	}
+/*	private static boolean isInMinPath(Node node, Hypergraph min) {
+		return min.getNodes().contains(node);
+	}*/
 	private static boolean isInMinPath(Node node, Hypergraph min) {
 		return min.getNodes().contains(node);
 	}
 	private static boolean isInMinPath2(Node node, Hypergraph min) {
 		for(Hyperarc arc: min.getHyperArcs()){
-			if(node.next.contains(arc)){
+			if(node.adj.contains(arc)){
 				return true;
 			}
 		}
 		return false;
 	}
 	private static boolean isInMinPath3(Node node, Hypergraph min) {
-		for(Hyperarc arc: node.next){
+		for(Hyperarc arc: node.adj){
 			if(min.getHyperArcs().contains(arc)){
 				return true;
 			}
