@@ -21,9 +21,9 @@ public class test {
 		
 		Hyperarc ha = new Hyperarc("a", 3);
 		ha.addHead(source);
-		source.adj.add(ha);
+		source.next.add(ha);
 		ha.addTail(n1);
-		n1.adj.add(ha);
+		n1.next.add(ha);
 		
 		
 	}

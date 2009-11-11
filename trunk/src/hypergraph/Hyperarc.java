@@ -1,8 +1,10 @@
 package hypergraph;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -12,8 +14,8 @@ public class Hyperarc {
 	private Set<Node> head;
 	private Integer value;
 	private boolean mark;
-	private Map<Node, Node.Hmark> origins;
-	Set<Hyperarc> cost;
+	private List<HashMap<Node, Node.Hmark>> origins;
+	List<HashSet<Hyperarc>> cost;
 
 	public Hyperarc(String name, Integer value) {
 		this.tail = new HashSet<Node>();
@@ -21,8 +23,8 @@ public class Hyperarc {
 		this.value = value;
 		this.name = name;
 		this.mark = false;
-		this.origins = new HashMap<Node, Node.Hmark>();
-		this.cost = new HashSet<Hyperarc>();
+		this.origins = new ArrayList<HashMap<Node, Node.Hmark>>();
+		this.cost = new ArrayList<HashSet<Hyperarc>>();
 	}
 
 	public Set<Node> getTail() {
@@ -33,7 +35,7 @@ public class Hyperarc {
 		return head;
 	}
 
-	public Map<Node, Node.Hmark> getMarks() {
+	public List<HashMap<Node, Node.Hmark>> getMarks() {
 		return origins;
 	}
 
@@ -50,8 +52,8 @@ public class Hyperarc {
 	public boolean setTail(Set<Node> tail) {
 		this.tail = tail;
 		for (Node n : tail) {
-			if (!n.adj.contains(this))
-				n.adj.add(this);
+			if (!n.next.contains(this))
+				n.next.add(this);
 		}
 		return true;
 	}
@@ -105,7 +107,7 @@ public class Hyperarc {
 			if (flag == false) {
 				return false;
 			}
-			flag = flag && node.isMarked();
+			flag = flag && node.isTotallyMarked();
 		}
 
 		if (flag == true) {
@@ -115,25 +117,26 @@ public class Hyperarc {
 		return flag;
 	}
 
-	public Set<Hyperarc> getCost() {
+	public List<HashSet<Hyperarc>> getCost() {
 		if (cost.isEmpty()) {
 			cost = calculateCost();
 		}
 		return cost;
 	}
 
-	public Set<Hyperarc> calculateCost() {
+	public List<HashSet<Hyperarc>> calculateCost() {
 
-		Set<Hyperarc> ret = new HashSet<Hyperarc>();
+		List<HashSet<Hyperarc>> ret = new ArrayList<HashSet<Hyperarc>>();
 		Map<Node, Node.Hmark> mapa = new HashMap<Node, Node.Hmark>();
-
+		Map<Node, Node.Hmark> map2 = new HashMap<Node, Node.Hmark>();
 		for (Node n : tail) {
 			mapa.put(n, n.mark.get(0));
-		}
+			map2.put(n, n.mark.get(0));
+		}	
+		
 
-		for (Node n : mapa.keySet()) {
-			origins.put(n.clone(), mapa.get(n).clone());
-		}
+		origins.add((HashMap<Node, Node.Hmark>) map2);
+
 		// origins = (HashMap<Node, Node.Hmark>)((HashMap<Node,
 		// Node.Hmark>)mapa).clone();
 
@@ -145,20 +148,27 @@ public class Hyperarc {
 		}
 
 		System.out.println("tamaño del mapa: " + mapa.keySet().size());
-		for (Node n : origins.keySet()) {
-			ret.addAll(origins.get(n).getAncestors());
+
+		Set<Hyperarc> tmp = new HashSet<Hyperarc>();
+
+		for (int i = 0; i < origins.size(); i++) {
+			for (Node n : origins.get(i).keySet()) {
+				tmp.addAll((HashSet<Hyperarc>) origins.get(i).get(n)
+						.getAncestors());
+			}
+			ret.add((HashSet<Hyperarc>) tmp);
+			String anc = "";
+			for (Hyperarc a : tmp) {
+				anc += ", " + a;
+			}
+
+			System.out.println("Nosotros, " + anc + ", somos ancestros de "
+					+ this);
 		}
 
-		// System.out.println("Ancestros de "+ this + ": " + ret.size());
-		String anc = "";
-		for (Hyperarc a : ret) {
-			anc += ", " + a;
-		}
-
-		System.out.println("Nosotros, " + anc + ", somos ancestros de " + this);
+		System.out.println("Grupos de ancestros de "+ this + ": " + origins.size());
 
 		return ret;
-
 	}
 
 	public void varyMark(Map<Node, Node.Hmark> map, Node current,
@@ -174,44 +184,62 @@ public class Hyperarc {
 		System.out.println("curr " + current + "next " + next);
 
 		for (i = 0; i < current.mark.size(); i++) {
-
-			System.out.print("map: ");
-			for (Node n : map.keySet()) {
-				System.out.print(map.get(n) + ", ");
-			}
-			System.out.print("origins: ");
-			for (Node n : map.keySet()) {
-				System.out.print(origins.get(n) + ", ");
-			}
+			System.out.println(current.mark.size());
 			
+			 System.out.print("map: ");
+			 for (Node n : map.keySet()) {
+			 System.out.print(map.get(n) + ", ");
+			 }
+			 System.out.print("origins: ");
+			 for (Node n : map.keySet()) {
+			 System.out.print(origins.get(0).get(n) + ", ");
+			 }
+
 			map.put(current, current.mark.get(i));
 
 			if (next != null) {
 				varyMark(map, next, iter);
 			} else {
-				System.out.print("map: ");
-				for (Node n : map.keySet()) {
-					System.out.print(map.get(n) + ", ");
-				}
-				System.out.print("origins: ");
-				for (Node n : map.keySet()) {
-					System.out.print(origins.get(n) + ", ");
-				}
+				 System.out.print("map: ");
+				 for (Node n : map.keySet()) {
+				 System.out.print(map.get(n) + ", ");
+				 }
+				 System.out.print("origins: ");
+				 for (Map<Node, Node.Hmark> m : origins) {
+				 for (Node n : m.keySet()) {
+				 System.out.print(m.get(n) + ", ");
+				 }
+				 System.out.println(";;;;;");
+				 }
 				System.out.println("lalala " + current + "-" + sumMarks(map)
-						+ "-" + sumMarks(origins));
-				if (sumMarks(map) < sumMarks(origins)) {
-					System.out.println("Viejo: " + sumMarks(origins)
+						+ "-" + sumMarks(origins.get(0)));
+				
+				if (sumMarks(map) == sumMarks(origins.get(0))) {
+					Map<Node, Node.Hmark> mp = new HashMap<Node, Node.Hmark>();
+					mp.putAll(map);
+					if (!origins.contains((HashMap<Node, Node.Hmark>) mp)) {
+						origins.add((HashMap<Node, Node.Hmark>) mp);
+					}
+				}else if (sumMarks(map) < sumMarks(origins.get(0))) {
+					System.out.println("Viejo: " + sumMarks(origins.get(0))
 							+ ", Nuevo : " + sumMarks(map));
-					origins.putAll(map);
-				}
-				System.out.print("map: ");
-				for (Node n : map.keySet()) {
-					System.out.print(map.get(n) + ", ");
-				}
-				System.out.print("origins: ");
-				for (Node n : map.keySet()) {
-					System.out.print(origins.get(n) + ", ");
-				}
+					origins.clear();
+					Map<Node, Node.Hmark> mp = new HashMap<Node, Node.Hmark>();
+					mp.putAll(map);
+					origins.add((HashMap<Node, Node.Hmark>) mp);
+				} 
+				//				
+				// System.out.print("map: ");
+				// for (Node n : map.keySet()) {
+				// System.out.print(map.get(n) + ", ");
+				// }
+				// System.out.print("origins: ");
+				// for (Map<Node, Node.Hmark> m : origins) {
+				// for (Node n : m.keySet()) {
+				// System.out.print(m.get(n) + ", ");
+				// }
+				// System.out.println(";;;;;");
+				// }
 			}
 		}
 	}
