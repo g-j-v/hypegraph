@@ -153,14 +153,18 @@ public class parsers {
 	public static void main(String[] args) {
 		Hypergraph hg;
 		Hypergraph minHg;
-		hg = read("B.hg");
+		hg = read("test");
 		System.out.println("aefsgd!");
 		int i = 0;
 
 		minHg = hg.minPath();
+		System.out.println("aaaaaaaaaaaaa");
+		System.out.println(minHg.minPath);
+		System.out.println(minHg.minWeight);
+		System.out.println("aaaaaaaaaaaaa");
 
 		try {
-			dotConverter.toDot(hg, "B.dot" + i, minHg);
+			dotConverter.toDot(hg, "test.dot" + i, minHg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
