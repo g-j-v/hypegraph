@@ -1,8 +1,10 @@
 package hypergraph;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class parsers {
+public class hgConverter {
 
 	Set<Node> nodes;
 	static InputStream file;
@@ -150,36 +152,35 @@ public class parsers {
 		return ret;
 	}
 
-	public static void main(String[] args) {
-		Hypergraph hg;
-		List<Hypergraph> minHg;
-
-		hg = read("B.hg");
-
-		// System.out.println("aefsgd!");
-		int i = 0;
-
-		minHg = hg.minPath();
-
-		for (Hypergraph hyp : minHg) {
-			System.out.println("aaaaaaaaaaaaa");
-			System.out.println(hyp.getHyperArcs());
-			System.out.println(hyp.minWeight);
-			System.out.println("aaaaaaaaaaaaa");
-
-			try {
-
-				dotConverter.toDot(hg, "B.dot" + i, hyp);
-
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-			// //System.out.println(minHg);
-			// //System.out.println(hg.getLast().getMin());
-			i++;
+	public static void toHg(Hypergraph min, String fileName) throws IOException{
+		
+		BufferedWriter output;
+		try {
+			output = new BufferedWriter(new FileWriter(fileName));
+		} catch (IOException e) {
+			System.out.println("No se puede escribir");
+			return;
 		}
+		
+		output.write(min.getStart().toString());
+		output.newLine();
+		output.write(min.getEnd().toString());
+		output.newLine();
+		for(Hyperarc ha: min.getHyperArcs()){
+			output.write(ha.toString() + " ");
+			output.write(ha.getValue() + " ");
+			output.write(ha.getHead().size() + " ");
+			for(Node n: ha.getHead()){
+				output.write(n.toString() + " ");
+			}
+			output.write(ha.getTail().size() + " ");
+			for(Node n: ha.getTail()){
+				output.write(n.toString() + " ");
+			}
+			output.newLine();
+		}
+		
+	
 	}
 
 }

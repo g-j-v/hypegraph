@@ -389,4 +389,12 @@ public class Hypergraph {
 		}
 	}
 
+	public Node getStart() {
+		return start;
+	}
+
+	public Node getEnd() {
+		return end;
+	}
+
 }

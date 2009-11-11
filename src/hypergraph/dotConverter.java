@@ -16,7 +16,7 @@ public class dotConverter {
 		try {
 			output = new BufferedWriter(new FileWriter(arch));
 		} catch (IOException e) {
-			System.out.println("catch2");
+			System.out.println("No se puede escribir");
 			return;
 		}
 	
@@ -41,7 +41,9 @@ public class dotConverter {
 		
 			output.write("[" +"shape=box, height00.18, fontsize=12,");
 			if(isInMinPath(arc,min)){
-				output.write("color=grey, style=filled, fillcolor=red ");
+				output.write(" color=red, style=filled, fillcolor=red ");
+			}else{
+				output.write("color=grey,");
 			}
 			output.write("label="+ '\"' + arc.getName()+ " (" + arc.getValue() + ") "+ "\"" +"];");
 			suma+=arc.getValue();
@@ -51,7 +53,7 @@ public class dotConverter {
 		output.newLine();
 	////Arquetes
 		
-		String flechitacomun = "[style=bold, color=black]";
+		String flechitacomun = "[style=bold, color=red]";
 		String flechitagris = "[color=\"#000000\", color=grey, arrowhead=vee]";
 		
 	//	Set<Hyperarc> hypArcNoinic = hypergrafo.getHyperArcs();
