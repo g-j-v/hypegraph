@@ -220,8 +220,8 @@ public class Hypergraph {
 
 		System.out
 				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println(Hypergraph.minPath + "\n" + weight + " "
-				+ ends.size() + ends);
+		System.out.println("minpath = " + Hypergraph.minPath + ", su peso: " + calculateWeight(minPath) + ", peso hasta ahora: " + weight + ", los anteriores más recientes:  "
+				+ last + ", anteriores a ´el: " + acum + ", y los nodos de donde vengo: "+  ends.size() + ends);
 		System.out
 				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
@@ -257,12 +257,18 @@ public class Hypergraph {
 		System.out.println("nodos = " + nodes);
 		Deque<Set<Hyperarc>> queue = new LinkedList<Set<Hyperarc>>();
 
-		Iterator<Node> iter = nodes.iterator();
-		if (iter.hasNext()) {
-			Node n = iter.next();
+		Node[] newNodes = new Node[nodes.size()];
+		newNodes = nodes.toArray(newNodes);
+		int i = 0;
+//		Iterator<Node> iter = nodes.iterator();
+//		if (iter.hasNext()) {
+		if(newNodes.length > 0){
+//			Node n = iter.next();
+			Node n = newNodes[i];
 			System.out.println("es el siguiente? = " + n);
 			System.out.println("cola a encolar = " + queue);
-			arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
+//			arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
+			arcPermut(newNodes, i, new ArrayList<Hyperarc>(), queue);
 			System.out.println("cola a encolada = " + queue);
 		}
 
@@ -277,26 +283,33 @@ public class Hypergraph {
 
 	}
 
-	private void arcPermut(Node current, Iterator<Node> iter,
-			List<Hyperarc> arcs, Deque<Set<Hyperarc>> queue) {
-
-		if (current == null) {
+//	private void arcPermut(Node current, Iterator<Node> iter,
+//			List<Hyperarc> arcs, Deque<Set<Hyperarc>> queue) {
+	private void arcPermut(Node[] nodes, int i, ArrayList<Hyperarc> arcs, Deque<Set<Hyperarc>> queue){
+//		if (current == null) {
+		if(i >= nodes.length){
 			queue.offer(new HashSet<Hyperarc>(arcs));
 			return;
 		}
 
-		Node next = null;
-		if (iter.hasNext()) {
-			next = iter.next();
-		}
-
-		System.out.println(current);
-		if (current.equals(start)) {
-			arcPermut(next, iter, arcs, queue);
+//		Node next = null;
+		
+//		if (iter.hasNext()) {
+//			next = iter.next();
+//		}
+		
+		
+		System.out.println(nodes[i]);
+//		if(current.equals(start)){
+		if (nodes[i].equals(start)) {
+//			arcPermut(next, iter, arcs, queue);
+			arcPermut(nodes, i+1, arcs, queue);
 		} else {
-			for (Hyperarc arc : current.prev) {
+//			for (Hyperarc arc : current.prev) {
+			for (Hyperarc arc : nodes[i].prev) {
 				boolean added = arcs.add(arc);
-				arcPermut(next, iter, arcs, queue);
+//				arcPermut(next, iter, arcs, queue);
+				arcPermut(nodes, i+1, arcs, queue);
 				if (added) {
 					arcs.remove(arcs.size() - 1);
 				}
