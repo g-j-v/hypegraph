@@ -92,20 +92,4 @@ public class dotConverter {
 	private static boolean isInMinPath(Node node, Hypergraph min) {
 		return min.getNodes().contains(node);
 	}
-	private static boolean isInMinPath2(Node node, Hypergraph min) {
-		for(Hyperarc arc: min.getHyperArcs()){
-			if(node.adj.contains(arc)){
-				return true;
-			}
-		}
-		return false;
-	}
-	private static boolean isInMinPath3(Node node, Hypergraph min) {
-		for(Hyperarc arc: node.adj){
-			if(min.getHyperArcs().contains(arc)){
-				return true;
-			}
-		}
-		return false;
-	}
 }

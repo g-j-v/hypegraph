@@ -31,7 +31,7 @@ public class parsers {
 			}
 
 			if (tokens.length > 1 && !tokens[1].startsWith("#")) {
-				System.out.println("Formato de archivo inválido.8");
+				// System.out.println("Formato de archivo inválido.8");
 				return null;
 			}
 
@@ -46,13 +46,13 @@ public class parsers {
 			}
 
 			if (tokens.length > 1 && !tokens[1].startsWith("#")) {
-				System.out.println("Formato de archivo inválido.8");
+				// System.out.println("Formato de archivo inválido.8");
 				return null;
 			}
 			ret.add(new Node(tokens[0]));
 
 		} catch (IOException e) {
-			System.out.println("Error al leer el archivo.");
+			// System.out.println("Error al leer el archivo.");
 			return null;
 		}
 
@@ -76,25 +76,25 @@ public class parsers {
 				}
 
 				name = tokens[0];
-				System.out.println(name);
+				// System.out.println(name);
 
 				weight = Integer.valueOf(tokens[1]);
-				System.out.println(weight);
+				// System.out.println(weight);
 
 				Hyperarc aux = new Hyperarc(name, weight);
 				graph.addHyperarc(aux);
 
 				cycles = Integer.valueOf(tokens[2]);
-				System.out.println("cycles = " + cycles);
+				// System.out.println("cycles = " + cycles);
 
 				if (cycles + 5 > tokens.length) {
-					System.out.println("Formato de archivo inválido.");
+					// System.out.println("Formato de archivo inválido.");
 					return false;
 				}
 
 				for (i = 3; i < 3 + cycles; i++) {
 					if (tokens[i].contains("#")) {
-						System.out.println("Formato de archivo inválido.");
+						// System.out.println("Formato de archivo inválido.");
 						return false;
 					}
 					graph.addHead(new Node(tokens[i]), aux);
@@ -102,11 +102,11 @@ public class parsers {
 
 				int marker = cycles + 3;
 				cycles = Integer.valueOf(tokens[marker]);
-				System.out.println("cycles = " + cycles);
+				// System.out.println("cycles = " + cycles);
 
 				for (i = marker + 1; i < marker + 1 + cycles; i++) {
 					if (tokens[i].contains("#")) {
-						System.out.println("Formato de archivo inválido.");
+						// System.out.println("Formato de archivo inválido.");
 						return false;
 					}
 					graph.addTail(new Node(tokens[i]), aux);
@@ -115,7 +115,7 @@ public class parsers {
 			}
 
 		} catch (IOException e) {
-			System.out.println("Error al leer el archivo.");
+			// System.out.println("Error al leer el archivo.");
 			return false;
 		}
 
@@ -130,7 +130,7 @@ public class parsers {
 			stream = new BufferedReader(new InputStreamReader(
 					new FileInputStream(archivo)));
 		} catch (FileNotFoundException e) {
-			System.out.println("El archivo no se ha encontrado.");
+			// System.out.println("El archivo no se ha encontrado.");
 		}
 
 		// stream.commentChar('#');
@@ -146,40 +146,40 @@ public class parsers {
 		if (!(readHyperArcs(ret))) {
 			return null;
 		}
-		System.out.println(ret);
+		// System.out.println(ret);
 		return ret;
 	}
 
 	public static void main(String[] args) {
 		Hypergraph hg;
-		Hypergraph minHg;
+		List<Hypergraph> minHg;
 
 		hg = read("B.hg");
 
-		System.out.println("aefsgd!");
+		// System.out.println("aefsgd!");
 		int i = 0;
 
 		minHg = hg.minPath();
 
-		System.out.println("aaaaaaaaaaaaa");
-		System.out.println(minHg.minPath);
-		System.out.println(minHg.minWeight);
-		System.out.println("aaaaaaaaaaaaa");
+		for (Hypergraph hyp : minHg) {
+			System.out.println("aaaaaaaaaaaaa");
+			System.out.println(hyp.getHyperArcs());
+			System.out.println(hyp.minWeight);
+			System.out.println("aaaaaaaaaaaaa");
 
+			try {
 
-		try {
+				dotConverter.toDot(hg, "B.dot" + i, hyp);
 
-			dotConverter.toDot(hg, "B.dot" + i, minHg);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// //System.out.println(minHg);
+			// //System.out.println(hg.getLast().getMin());
+			i++;
 		}
-
-		//System.out.println(minHg);
-		//System.out.println(hg.getLast().getMin());
-		i++;
-
 	}
 
 }

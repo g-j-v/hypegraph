@@ -147,7 +147,7 @@ public class Hyperarc {
 			varyMark(mapa, first, iter);
 		}
 
-		System.out.println("tamaño del mapa: " + mapa.keySet().size());
+		//System.out.println("tamaño del mapa: " + mapa.keySet().size());
 
 		Set<Hyperarc> tmp = new HashSet<Hyperarc>();
 
@@ -162,11 +162,11 @@ public class Hyperarc {
 				anc += ", " + a;
 			}
 
-			System.out.println("Nosotros, " + anc + ", somos ancestros de "
-					+ this);
+			//System.out.println("Nosotros, " + anc + ", somos ancestros de "
+//					+ this);
 		}
 
-		System.out.println("Grupos de ancestros de "+ this + ": " + origins.size());
+		//System.out.println("Grupos de ancestros de "+ this + ": " + origins.size());
 
 		return ret;
 	}
@@ -181,18 +181,18 @@ public class Hyperarc {
 			next = iter.next();
 		}
 
-		System.out.println("curr " + current + "next " + next);
+		//System.out.println("curr " + current + "next " + next);
 
 		for (i = 0; i < current.mark.size(); i++) {
-			System.out.println(current.mark.size());
+			//System.out.println(current.mark.size());
 			
-			 System.out.print("map: ");
+			 //System.out.print("map: ");
 			 for (Node n : map.keySet()) {
-			 System.out.print(map.get(n) + ", ");
+			 //System.out.print(map.get(n) + ", ");
 			 }
-			 System.out.print("origins: ");
+			 //System.out.print("origins: ");
 			 for (Node n : map.keySet()) {
-			 System.out.print(origins.get(0).get(n) + ", ");
+			 //System.out.print(origins.get(0).get(n) + ", ");
 			 }
 
 			map.put(current, current.mark.get(i));
@@ -200,19 +200,19 @@ public class Hyperarc {
 			if (next != null) {
 				varyMark(map, next, iter);
 			} else {
-				 System.out.print("map: ");
+				 //System.out.print("map: ");
 				 for (Node n : map.keySet()) {
-				 System.out.print(map.get(n) + ", ");
+				 //System.out.print(map.get(n) + ", ");
 				 }
-				 System.out.print("origins: ");
+				 //System.out.print("origins: ");
 				 for (Map<Node, Node.Hmark> m : origins) {
 				 for (Node n : m.keySet()) {
-				 System.out.print(m.get(n) + ", ");
+				 //System.out.print(m.get(n) + ", ");
 				 }
-				 System.out.println(";;;;;");
+				 //System.out.println(";;;;;");
 				 }
-				System.out.println("lalala " + current + "-" + sumMarks(map)
-						+ "-" + sumMarks(origins.get(0)));
+				//System.out.println("lalala " + current + "-" + sumMarks(map)
+//						+ "-" + sumMarks(origins.get(0)));
 				
 				if (sumMarks(map) == sumMarks(origins.get(0))) {
 					Map<Node, Node.Hmark> mp = new HashMap<Node, Node.Hmark>();
@@ -221,24 +221,24 @@ public class Hyperarc {
 						origins.add((HashMap<Node, Node.Hmark>) mp);
 					}
 				}else if (sumMarks(map) < sumMarks(origins.get(0))) {
-					System.out.println("Viejo: " + sumMarks(origins.get(0))
-							+ ", Nuevo : " + sumMarks(map));
+					//System.out.println("Viejo: " + sumMarks(origins.get(0))
+//							+ ", Nuevo : " + sumMarks(map));
 					origins.clear();
 					Map<Node, Node.Hmark> mp = new HashMap<Node, Node.Hmark>();
 					mp.putAll(map);
 					origins.add((HashMap<Node, Node.Hmark>) mp);
 				} 
 				//				
-				// System.out.print("map: ");
+				// //System.out.print("map: ");
 				// for (Node n : map.keySet()) {
-				// System.out.print(map.get(n) + ", ");
+				// //System.out.print(map.get(n) + ", ");
 				// }
-				// System.out.print("origins: ");
+				// //System.out.print("origins: ");
 				// for (Map<Node, Node.Hmark> m : origins) {
 				// for (Node n : m.keySet()) {
-				// System.out.print(m.get(n) + ", ");
+				// //System.out.print(m.get(n) + ", ");
 				// }
-				// System.out.println(";;;;;");
+				// //System.out.println(";;;;;");
 				// }
 			}
 		}
