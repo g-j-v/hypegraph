@@ -124,7 +124,7 @@ public class Hypergraph {
 		Hyperarc arc = end.getMinArc().last;
 		System.out.println("key0: " + arc);
 		minPath = tracePath(arc, g).hyperArcs;
-		System.out.println("key: " + Hypergraph.minPath);
+		System.out.println("key " + Hypergraph.minPath);
 		minWeight = calculateWeight(minPath);
 
 		clearMarks();
@@ -132,7 +132,8 @@ public class Hypergraph {
 		// Set<Hyperarc> ret = new HashSet<Hyperarc>();
 		// ret = (HashSet<Hyperarc>)realMinPath(hg.start, hg.end, hg,
 		// calculateWeight());
-
+		System.out.println("key " + Hypergraph.minPath);
+		System.out.println("key2: " + Hypergraph.minWeight);
 		realMinPathWrap(this.start, this.end);
 
 		Hypergraph hg = new Hypergraph();
@@ -147,6 +148,10 @@ public class Hypergraph {
 	}
 
 	private Hypergraph tracePath(Hyperarc arc, Hypergraph graph) {
+		// está mal, no es la menor del nodo que debe tomar, sino la que en el
+		// mapa
+		// de la hiperarista está relacionada con ese nodo.
+
 		if (arc == null) {
 			// System.out.println("volviendo!");
 			return null;
@@ -159,8 +164,7 @@ public class Hypergraph {
 			}
 		}
 		for (Node n : arc.getTail()) {
-
-			tracePath(n.getMinArc().last, graph);
+			tracePath(arc.getMarks().get(0).get(n).last, graph);
 
 		}
 
@@ -207,25 +211,32 @@ public class Hypergraph {
 
 		int weight = calculateWeight(acum) + calculateWeight(last);
 
-		/*
-		 * if (weight > Hypergraph.minWeight) {
-		 * System.out.println("no sigo porque");
-		 * System.out.println(acum.toString() + last.toString());
-		 * System.out.println("era largo"); return; }
-		 */
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println("last = " + last);
-		System.out.println("ends = " + ends);
-		System.out.println("ends.size() " + ends.size());
-		System.out.println(start);
-		System.out.println(ends.toArray()[0]);
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@");
+		if (weight > Hypergraph.minWeight) {
+			System.out.println("no sigo porque");
+			System.out.println(acum.toString() + last.toString());
+			System.out.println("era largo");
+			return;
+		}
+
+		System.out
+				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println(Hypergraph.minPath + "\n" + weight + " "
+				+ ends.size() + ends);
+		System.out
+				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 		if (ends.size() == 1 && start.equals(ends.toArray()[0])) {
-			System.out.println("entroooooo");
-			System.out.println("actual peso: " + weight);
-			System.out.println("minimo: " + minWeight);
-			System.out.println("camino" + minPath);
+			System.out
+					.println("@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			System.out.println(Hypergraph.minPath);
+			System.out
+					.println("@@@@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			if (weight < minWeight) {
+				System.out
+						.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				System.out.println(Hypergraph.minPath);
+				System.out
+						.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 				Hypergraph.minWeight = weight;
 				Hypergraph.minPath.clear();
 				Hypergraph.minPath.addAll(acum);
@@ -243,23 +254,20 @@ public class Hypergraph {
 		for (Hyperarc ha : last) {
 			nodes.addAll(ha.getTail());
 		}
-
 		System.out.println("nodos = " + nodes);
 		Deque<Set<Hyperarc>> queue = new LinkedList<Set<Hyperarc>>();
 
 		Iterator<Node> iter = nodes.iterator();
 		if (iter.hasNext()) {
 			Node n = iter.next();
-			// System.out.println("es el siguiente? = " + n);
-			// System.out.println("cola a encolar = " + queue);
+			System.out.println("es el siguiente? = " + n);
+			System.out.println("cola a encolar = " + queue);
 			arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
-			System.out.println("cola encolada = " + queue);
+			System.out.println("cola a encolada = " + queue);
 		}
-		/*
-		 * Ahora copiar el código de Hyperarc.varyMark para hacer las
-		 * combinatorias de aristas y agregarlas al deque de sets de aristas
-		 */
+
 		System.out.println(queue);
+
 		while (!queue.isEmpty()) {
 			Set<Hyperarc> haset = queue.poll();
 			// sSystem.out.println(queue);
@@ -304,7 +312,7 @@ public class Hypergraph {
 		this.start = start;
 	}
 
-	private static int calculateWeight(Set<Hyperarc> arcs) {
+	public static int calculateWeight(Set<Hyperarc> arcs) {
 		int w = 0;
 		for (Hyperarc arc : arcs) {
 			w += arc.getValue();

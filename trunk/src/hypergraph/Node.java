@@ -16,6 +16,7 @@ public class Node implements Cloneable {
 	public Node(String name) {
 		this.name = name;
 		this.tag = null;
+
 		this.prev =  new ArrayList<Hyperarc>();
 		this.next = new ArrayList<Hyperarc>();
 		this.mark = new ArrayList<Hmark>();
