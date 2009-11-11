@@ -154,7 +154,7 @@ public class parsers {
 		Hypergraph hg;
 		Hypergraph minHg;
 
-		hg = read("A.hg");
+		hg = read("B.hg");
 
 		System.out.println("aefsgd!");
 		int i = 0;
@@ -169,7 +169,7 @@ public class parsers {
 
 		try {
 
-			dotConverter.toDot(hg, "A.dot" + i, minHg);
+			dotConverter.toDot(hg, "B.dot" + i, minHg);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
