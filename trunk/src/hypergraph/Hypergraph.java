@@ -14,12 +14,13 @@ public class Hypergraph {
 	private Node end;
 	private Set<Node> nodes;
 	private Set<Hyperarc> hyperArcs;
-	public static Set<Hyperarc> minPath;
+	public static List<HashSet<Hyperarc>> minPath;
 	public static int minWeight;
 
 	public Hypergraph() {
 		nodes = new HashSet<Node>();
 		hyperArcs = new HashSet<Hyperarc>();
+		minPath = new ArrayList<HashSet<Hyperarc>>();
 	}
 
 	public boolean addHyperarc(String name, Integer value) {
@@ -98,21 +99,21 @@ public class Hypergraph {
 		return nodes.contains(node);
 	}
 
-	public Hypergraph minPath() {
+	public List<Hypergraph> minPath() {
 
 		clearMarks();
 
 		Iterator<Node> iter = nodes.iterator();
-		// System.out.println(nodes.size());
+		// //System.out.println(nodes.size());
 		Node node = null;
-		// System.out.println(node);
+		// //System.out.println(node);
 
 		while (iter.hasNext() && !start.equals(node)) {
 			node = iter.next();
-			// System.out.println("veo " + node);
+			// //System.out.println("veo " + node);
 		}
 		if (node.equals(start)) {
-			System.out.println("inicia " + node);
+			// System.out.println("inicia " + node);
 			node.init();
 		}
 
@@ -122,28 +123,36 @@ public class Hypergraph {
 		g.setEnd(this.end);
 
 		Hyperarc arc = end.getMinArc().last;
-		System.out.println("key0: " + arc);
-		minPath = tracePath(arc, g).hyperArcs;
-		System.out.println("key " + Hypergraph.minPath);
-		minWeight = calculateWeight(minPath);
+		// System.out.println("key0: " + arc);
+
+		minPath.add((HashSet<Hyperarc>) tracePath(arc, g).hyperArcs);
+		// System.out.println("key " + Hypergraph.minPath);
+		minWeight = calculateWeight(minPath.get(0));
 
 		clearMarks();
 
 		// Set<Hyperarc> ret = new HashSet<Hyperarc>();
 		// ret = (HashSet<Hyperarc>)realMinPath(hg.start, hg.end, hg,
 		// calculateWeight());
-		System.out.println("key " + Hypergraph.minPath);
-		System.out.println("key2: " + Hypergraph.minWeight);
+		// System.out.println("key " + Hypergraph.minPath);
+		// System.out.println("key2: " + Hypergraph.minWeight);
 		realMinPathWrap(this.start, this.end);
 
-		Hypergraph hg = new Hypergraph();
-		hg.setStart(this.start);
-		hg.setEnd(this.end);
+//		Hypergraph hg = new Hypergraph();
+//		hg.setStart(this.start);
+//		hg.setEnd(this.end);
 
-		for (Hyperarc ha : minPath) {
-			hg.addHyperarc(ha);
+		List<Hypergraph> ret = new ArrayList<Hypergraph>();
+		for (HashSet<Hyperarc> hs : minPath) {
+			Hypergraph hg = new Hypergraph();
+			hg.setStart(this.start);
+			hg.setEnd(this.end);
+			for (Hyperarc ha : hs) {
+				hg.addHyperarc(ha);
+			}
+			ret.add(hg);
 		}
-		return hg;
+		return ret;
 
 	}
 
@@ -153,7 +162,7 @@ public class Hypergraph {
 		// de la hiperarista está relacionada con ese nodo.
 
 		if (arc == null) {
-			// System.out.println("volviendo!");
+			// //System.out.println("volviendo!");
 			return null;
 		}
 
@@ -173,24 +182,24 @@ public class Hypergraph {
 
 	private void possMinPath(Node ini, Node fin) {
 		if (ini.equals(fin)) {
-			System.out.println("vuelvoo!");
+			// System.out.println("vuelvoo!");
 			return;
 		}
 		for (Hyperarc arc : ini.next) {
-			System.out.println("arco " + arc);
+			// System.out.println("arco " + arc);
 			if (arc.isMarked()) {
-				System.out.println(arc + " está marcada!");
+				// System.out.println(arc + " está marcada!");
 				for (Node n : arc.getHead()) {
-					System.out.println("nodo " + n + " para arco " + arc);
+					// System.out.println("nodo " + n + " para arco " + arc);
 					n.addMark(arc);
 					if (n.isTotallyMarked()) {
-						System.out.println(n + " está marcada!");
+						// System.out.println(n + " está marcada!");
 						possMinPath(n, fin);
 					}
 				}
 			}
 		}
-		System.out.println("retornando");
+		// System.out.println("retornando");
 	}
 
 	private void realMinPathWrap(Node start, Node end) {
@@ -212,35 +221,47 @@ public class Hypergraph {
 		int weight = calculateWeight(acum) + calculateWeight(last);
 
 		if (weight > Hypergraph.minWeight) {
-			System.out.println("no sigo porque");
-			System.out.println(acum.toString() + last.toString());
-			System.out.println("era largo");
+			// System.out.println("no sigo porque");
+			// System.out.println(acum.toString() + last.toString());
+			// System.out.println("era largo");
 			return;
 		}
 
-		System.out
-				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-		System.out.println("minpath = " + Hypergraph.minPath + ", su peso: " + calculateWeight(minPath) + ", peso hasta ahora: " + weight + ", los anteriores más recientes:  "
-				+ last + ", anteriores a ´el: " + acum + ", y los nodos de donde vengo: "+  ends.size() + ends);
-		System.out
-				.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		// System.out
+		// .println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+		// System.out.println("minpath = " + Hypergraph.minPath + ", su peso: "
+		// + calculateWeight(minPath) + ", peso hasta ahora: " + weight +
+		// ", los anteriores más recientes:  "
+		// + last + ", anteriores a ´el: " + acum +
+		// ", y los nodos de donde vengo: "+ ends.size() + ends);
+		// System.out
+		// .println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@bbbbb@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
 		if (ends.size() == 1 && start.equals(ends.toArray()[0])) {
-			System.out
-					.println("@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			System.out.println(Hypergraph.minPath);
-			System.out
-					.println("@@@@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			// System.out
+			// .println("@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			// System.out.println(Hypergraph.minPath);
+			// System.out
+			// .println("@@@@@@@@@@@@@@@@@@@@aaa@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			if (weight < minWeight) {
-				System.out
-						.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-				System.out.println(Hypergraph.minPath);
-				System.out
-						.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				// System.out
+				// .println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+				// System.out.println(Hypergraph.minPath);
+				// System.out
+				// .println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 				Hypergraph.minWeight = weight;
 				Hypergraph.minPath.clear();
-				Hypergraph.minPath.addAll(acum);
-				Hypergraph.minPath.addAll(last);
+				HashSet<Hyperarc> hs = new HashSet<Hyperarc>();
+				hs.addAll(acum);
+				hs.addAll(last);
+				minPath.add(hs);
+//				Hypergraph.minPath.addAll(acum);
+//				Hypergraph.minPath.addAll(last);
+			} else if (weight == minWeight){
+				HashSet<Hyperarc> hs = new HashSet<Hyperarc>();
+				hs.addAll(acum);
+				hs.addAll(last);
+				minPath.add(hs);
 			}
 			return;
 		}
@@ -254,62 +275,62 @@ public class Hypergraph {
 		for (Hyperarc ha : last) {
 			nodes.addAll(ha.getTail());
 		}
-		System.out.println("nodos = " + nodes);
+		// System.out.println("nodos = " + nodes);
 		Deque<Set<Hyperarc>> queue = new LinkedList<Set<Hyperarc>>();
 
 		Node[] newNodes = new Node[nodes.size()];
 		newNodes = nodes.toArray(newNodes);
 		int i = 0;
-//		Iterator<Node> iter = nodes.iterator();
-//		if (iter.hasNext()) {
-		if(newNodes.length > 0){
-//			Node n = iter.next();
+		// Iterator<Node> iter = nodes.iterator();
+		// if (iter.hasNext()) {
+		if (newNodes.length > 0) {
+			// Node n = iter.next();
 			Node n = newNodes[i];
-			System.out.println("es el siguiente? = " + n);
-			System.out.println("cola a encolar = " + queue);
-//			arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
+			// System.out.println("es el siguiente? = " + n);
+			// System.out.println("cola a encolar = " + queue);
+			// arcPermut(n, iter, new ArrayList<Hyperarc>(), queue);
 			arcPermut(newNodes, i, new ArrayList<Hyperarc>(), queue);
-			System.out.println("cola a encolada = " + queue);
+			// System.out.println("cola a encolada = " + queue);
 		}
 
-		System.out.println(queue);
+		// System.out.println(queue);
 
 		while (!queue.isEmpty()) {
 			Set<Hyperarc> haset = queue.poll();
-			// sSystem.out.println(queue);
-			// (System.out.println(haset);
+			// s//System.out.println(queue);
+			// (//System.out.println(haset);
 			realMinPath(start, nodes, newAcum, haset);
 		}
 
 	}
 
-//	private void arcPermut(Node current, Iterator<Node> iter,
-//			List<Hyperarc> arcs, Deque<Set<Hyperarc>> queue) {
-	private void arcPermut(Node[] nodes, int i, ArrayList<Hyperarc> arcs, Deque<Set<Hyperarc>> queue){
-//		if (current == null) {
-		if(i >= nodes.length){
+	// private void arcPermut(Node current, Iterator<Node> iter,
+	// List<Hyperarc> arcs, Deque<Set<Hyperarc>> queue) {
+	private void arcPermut(Node[] nodes, int i, ArrayList<Hyperarc> arcs,
+			Deque<Set<Hyperarc>> queue) {
+		// if (current == null) {
+		if (i >= nodes.length) {
 			queue.offer(new HashSet<Hyperarc>(arcs));
 			return;
 		}
 
-//		Node next = null;
-		
-//		if (iter.hasNext()) {
-//			next = iter.next();
-//		}
-		
-		
-		System.out.println(nodes[i]);
-//		if(current.equals(start)){
+		// Node next = null;
+
+		// if (iter.hasNext()) {
+		// next = iter.next();
+		// }
+
+		// System.out.println(nodes[i]);
+		// if(current.equals(start)){
 		if (nodes[i].equals(start)) {
-//			arcPermut(next, iter, arcs, queue);
-			arcPermut(nodes, i+1, arcs, queue);
+			// arcPermut(next, iter, arcs, queue);
+			arcPermut(nodes, i + 1, arcs, queue);
 		} else {
-//			for (Hyperarc arc : current.prev) {
+			// for (Hyperarc arc : current.prev) {
 			for (Hyperarc arc : nodes[i].prev) {
 				boolean added = arcs.add(arc);
-//				arcPermut(next, iter, arcs, queue);
-				arcPermut(nodes, i+1, arcs, queue);
+				// arcPermut(next, iter, arcs, queue);
+				arcPermut(nodes, i + 1, arcs, queue);
 				if (added) {
 					arcs.remove(arcs.size() - 1);
 				}

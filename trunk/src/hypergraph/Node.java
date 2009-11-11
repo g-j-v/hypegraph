@@ -92,8 +92,8 @@ public class Node implements Cloneable {
 		Hmark tmp;
 		for (HashSet<Hyperarc> hs : aux) {
 			tmp = new Hmark(hs, arc);
-			System.out.println("marqué " + this + " con " + arc + " con "
-					+ tmp.getCost());
+			//System.out.println("marqué " + this + " con " + arc + " con "
+//					+ tmp.getCost());
 			mark.add(tmp);
 		}
 	}
@@ -102,13 +102,13 @@ public class Node implements Cloneable {
 	public int getMin() {
 		Integer i = null;
 		for (Hmark m : mark) {
-//			System.out.println(m.cost);
+//			//System.out.println(m.cost);
 			if (i == null || m.cost < i) {
-				System.out.println(m.cost);
+				//System.out.println(m.cost);
 				i = m.cost;
 			}
 		}
-		System.out.println("Peso mínimo para " + this + "=" + i);
+		//System.out.println("Peso mínimo para " + this + "=" + i);
 		return i;
 	}
 
