@@ -58,7 +58,6 @@ public class Hypergraph {
 			for (Node n : nodes) {
 				if (n.equals(node)) {
 					node = n;
-					n.growHyp();
 					n.addPrev(arc);
 				}
 			}
