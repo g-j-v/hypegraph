@@ -7,28 +7,21 @@ import java.util.Set;
 
 public class Node implements Cloneable {
 	String name;
-	Integer tag;
 	List<Hyperarc> prev;
 	List<Hyperarc> next;
 	List<Hmark> mark;
-	int prevHyps;
 
 	public Node(String name) {
 		this.name = name;
-		this.tag = null;
-
 		this.prev =  new ArrayList<Hyperarc>();
 		this.next = new ArrayList<Hyperarc>();
 		this.mark = new ArrayList<Hmark>();
-		this.prevHyps = 0;
 	}
 
 	public Node clone() {
 		Node ret = new Node(this.name);
 		ret.next = this.next;
 		ret.mark = this.mark;
-		ret.prevHyps = this.prevHyps;
-		ret.tag = this.tag;
 		return ret;
 	}
 
@@ -79,7 +72,7 @@ public class Node implements Cloneable {
 		for (Hmark m : mark) {
 			prevs.add(m.last);
 		}
-		return !mark.isEmpty() && prevs.size() == prevHyps;
+		return !mark.isEmpty() && prevs.size() == mark.size();
 	}
 
 	public boolean isMarked(){
@@ -128,15 +121,10 @@ public class Node implements Cloneable {
 		 */
 
 		addMark(new Hyperarc("", 0));
-		prevHyps = 1;
 	}
 
 	public List<Hmark> getOrigins() {
 		return mark;
-	}
-
-	public void growHyp() {
-		prevHyps++;
 	}
 
 	public class Hmark implements Cloneable {
