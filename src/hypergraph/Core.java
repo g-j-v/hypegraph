@@ -17,17 +17,14 @@ public class Core {
 			return;
 		}
 		
-		String s = "sarasasa.hg";
-		String[] asd = s.split(".");
-		
 		
 		
 		/*char[] aux = args[0].toCharArray();
 		
 		aux.toString();
 		String[] name=aux.split(".");*/
-		System.out.println(asd.length);
-		String name = "A.out";
+		
+		String name = args[0].split("\\.")[0];
 		System.out.println("Calculando el camino minimo de " + name);
 		hg = hgConverter.read(args[0]);
 		
@@ -50,8 +47,8 @@ public class Core {
 			System.out.println("aaaaaaaaaaaaa");
 
 			try {
-				hgConverter.toHg(hyp, name+".min.hg");
-				//dotConverter.toDot(hg, name + i + ".min.dot", hyp);
+				hgConverter.toHg(hyp, name + ".min.hg");
+				dotConverter.toDot(hg, name  +".min" + i + ".dot", hyp);
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block

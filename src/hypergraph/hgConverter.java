@@ -179,7 +179,7 @@ public class hgConverter {
 			}
 			output.newLine();
 		}
-		
+		output.flush();
 	
 	}
 

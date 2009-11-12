@@ -1,0 +1,80 @@
+digraph { 
+//// Nodos
+Nodea9 [label="a9"];
+NodeSTART [label="START"];
+Nodea12 [label="a12"];
+Nodea13 [label="a13"];
+Nodea10 [label="a10"];
+Nodea11 [label="a11"];
+Nodea1 [label="a1"];
+NodeEND [label="END"];
+Nodea2 [label="a2"];
+Nodea3 [label="a3"];
+Nodea4 [label="a4"];
+Nodea5 [label="a5"];
+Nodea6 [label="a6"];
+Nodea7 [label="a7"];
+Nodea8 [label="a8"];
+//// ejes
+A2 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A2 (7) "];
+A1 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A1 (5) "];
+A4 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A4 (8) "];
+A3 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A3 (6) "];
+A6 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A6 (5) "];
+A5 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A5 (4) "];
+A8 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A8 (11) "];
+A7 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A7 (10) "];
+A11 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A11 (7) "];
+A10 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A10 (4) "];
+A9 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A9 (5) "];
+A12 [shape=box, height00.18, fontsize=12, color=red, style=filled, fillcolor=red label="A12 (6) "];
+//// Arcos
+NodeSTART->A2 [style=bold, color=red]
+A2->Nodea10[style=bold, color=red]
+A2->Nodea11[style=bold, color=red]
+A2->Nodea3[style=bold, color=red]
+A2->Nodea6[style=bold, color=red]
+A2->Nodea7[style=bold, color=red]
+NodeSTART->A1 [style=bold, color=red]
+A1->Nodea2[style=bold, color=red]
+Nodea3->A4 [style=bold, color=red]
+A4->Nodea12[style=bold, color=red]
+A4->Nodea13[style=bold, color=red]
+A4->Nodea8[style=bold, color=red]
+NodeSTART->A3 [style=bold, color=red]
+A3->Nodea9[style=bold, color=red]
+A3->Nodea4[style=bold, color=red]
+A3->Nodea5[style=bold, color=red]
+Nodea9->A6 [style=bold, color=red]
+Nodea2->A6 [style=bold, color=red]
+Nodea7->A6 [style=bold, color=red]
+Nodea8->A6 [style=bold, color=red]
+A6->Nodea1[style=bold, color=red]
+Nodea4->A5 [style=bold, color=red]
+A5->Nodea13[style=bold, color=red]
+A5->Nodea8[style=bold, color=red]
+Nodea9->A8 [style=bold, color=red]
+Nodea10->A8 [style=bold, color=red]
+Nodea7->A8 [style=bold, color=red]
+Nodea8->A8 [style=bold, color=red]
+A8->Nodea1[style=bold, color=red]
+Nodea9->A7 [style=bold, color=red]
+Nodea7->A7 [style=bold, color=red]
+Nodea8->A7 [style=bold, color=red]
+A7->NodeEND[style=bold, color=red]
+Nodea13->A11 [style=bold, color=red]
+Nodea5->A11 [style=bold, color=red]
+Nodea6->A11 [style=bold, color=red]
+A11->NodeEND[style=bold, color=red]
+Nodea9->A10 [style=bold, color=red]
+Nodea12->A10 [style=bold, color=red]
+Nodea11->A10 [style=bold, color=red]
+A10->NodeEND[style=bold, color=red]
+Nodea9->A9 [style=bold, color=red]
+Nodea12->A9 [style=bold, color=red]
+Nodea10->A9 [style=bold, color=red]
+Nodea11->A9 [style=bold, color=red]
+A9->Nodea1[style=bold, color=red]
+Nodea1->A12 [style=bold, color=red]
+A12->NodeEND[style=bold, color=red]
+}

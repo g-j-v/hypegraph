@@ -261,7 +261,15 @@ public class Hypergraph {
 				HashSet<Hyperarc> hs = new HashSet<Hyperarc>();
 				hs.addAll(acum);
 				hs.addAll(last);
-				minPath.add(hs);
+				boolean flag = true;
+				for(Set<Hyperarc> mins: minPath){
+					if(mins.containsAll(hs)){
+						flag = false;
+					}
+				}
+				if(flag){
+					minPath.add(hs);
+				}
 			}
 			return;
 		}
